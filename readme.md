@@ -21,7 +21,7 @@
   - 1) Iterates over all accounts in the accounts ArrayList.
   - 2) Invokes compute() on each Account object.
   - 3) Displays the ending balance of each Account object.
-- Do something extra __/10
+- Do something extra 10/10
   - Add something to your project that is not already required in the project description/rubrics.  List what you did to get credit: 
     - I added `accountTypeString()` to `Banker.java` and used it to provide more information to the user to show what account's information was being shown. Since users can go through multiple accounts at once, they might get the order in which accounts were added mixed up. This implementation isn't perfect (it doesn't differentiate multiple accounts of the same type) but it should make it easier for users to identify the currently displayed account balance.
 - Code is written according to best practices (variable and method naming, exception handling, syntax, format). Each class and public method has JavaDoc.  10/10
