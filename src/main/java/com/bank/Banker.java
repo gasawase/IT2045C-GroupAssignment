@@ -16,6 +16,11 @@ public class Banker {
         displayBalance();
     }
 
+    /**
+     * Prompts user for type of account, then account information.
+     * Asks user if they would like to open another account and repeats the
+     * 'type, information, another account' prompts until no more accounts are desired.
+     */
     public static void promptUser(){
         
         int doBanking = JOptionPane.NO_OPTION;
@@ -50,6 +55,10 @@ public class Banker {
         } while (doBanking == JOptionPane.YES_OPTION); 
     }
 
+    /**
+     * Computes the balance of all accounts in allAccounts and displays each one individually in a JOptionPane message box. 
+     * Allows user to calculate again with the same given starting information.
+     */
     public static void displayBalance() {
         do {
             for (Account account : allAccounts) {
@@ -60,6 +69,11 @@ public class Banker {
              JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE));
     }
 
+    /**
+     * Simple factory method to create and return a subclass of type Account.
+     * @param chosenAccount A string representing the type of account we want to create. 
+     * @return the created account.
+     */
     private static Account createAccount(final Object chosenAccount) {
         Account account = new Account();
         if (chosenAccount.toString().equals(SAVINGS)) {
@@ -74,9 +88,9 @@ public class Banker {
     }
 
     /**
-     * Simple method to return the type of account as a string
-     * @param account the account being checked
-     * @return a string of the account type. defaults to "bank"
+     * Simple method to return the type of account as a string.
+     * @param account the account being checked.
+     * @return a string of the account type. defaults to "bank".
      */
 
     private static String accountTypeString(Account account){

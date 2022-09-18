@@ -29,8 +29,11 @@ public class Account {
         return periods;
     }
 
+    /**
+     * Computes the balance after a number of periods.
+     * @return the final balance.
+     */
     public double compute() {
-        // FIXME: wrong computation
         for (int i = 0; i < periods; i++) {
             balance = balance + (balance * interest / 100);
         }
