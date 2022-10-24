@@ -74,7 +74,7 @@ public class Banker {
      * @param chosenAccount A string representing the type of account we want to create. 
      * @return the created account.
      */
-    private static Account createAccount(final Object chosenAccount) {
+    public static Account createAccount(final Object chosenAccount) {
         Account account = new Account();
         if (chosenAccount.toString().equals(SAVINGS)) {
             account = new Savings();
