@@ -3,8 +3,10 @@ import com.bank.Banker;
 import com.bank.CertificateOfDeposit;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Vector;
 
 
@@ -38,13 +40,16 @@ public class BankerForm {
         btnAddAccount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (!validateInputs()) {
+                    JOptionPane.showMessageDialog(null, "Please fill in all input forms before adding an account.");
+                    return;
+                }
+
                 String strBalance = txtStartBalance.getText();
                 double balance = Double.parseDouble(strBalance);
 
                 String strInterestRate = txtInterestRate.getText();
                 double interestRate = Double.parseDouble(strInterestRate);
-
-
 
                 String type = cmbAccountType.getSelectedItem().toString();
                 Account account = Banker.createAccount(type);
@@ -53,14 +58,11 @@ public class BankerForm {
 
                 if (cmbAccountType.getSelectedItem().toString().equals(Banker.CERT_OF_DEPOSIT)) {
                     if (account instanceof CertificateOfDeposit) {
-                        //CertificateOfDeposit certificateOfDeposit = (CertificateOfDeposit) account;
                         String strTerms = txtTerms.getText();
                         int terms = Integer.parseInt(strTerms);
                         ((CertificateOfDeposit) account).setMaturity(terms);
-                        //certificateOfDeposit.setMaturity(terms);
                     }
                 }
-
 
                 allAccounts.add(account);
                 lstAccounts.updateUI();
@@ -93,12 +95,31 @@ public class BankerForm {
         });
     }
 
+    /**
+     * Initialize the account type combo box with the different account types
+     */
     private void initializeAccountTypeComboBox() {
         DefaultComboBoxModel<String> accountTypesModel = new DefaultComboBoxModel<>();
         accountTypesModel.addElement(Banker.SAVINGS);
         accountTypesModel.addElement(Banker.CHECKING);
         accountTypesModel.addElement(Banker.CERT_OF_DEPOSIT);
         cmbAccountType.setModel(accountTypesModel);
+    }
+
+    /**
+     * Check all JTextField components in pnlInnerNorth to see if they are empty
+     * @return Returns true if valid inputs, false if any empty strings
+     */
+    private boolean validateInputs() {
+        Component[] components = pnlInnerNorth.getComponents();
+        for (Component component : components) {
+            if (component.getClass().equals(JTextField.class)){
+                if (component.isEnabled() &&  ((JTextField) component).getText().equals("")){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {

@@ -10,4 +10,9 @@ public class CertificateOfDeposit extends Account {
     public int getMaturity() {
         return term;
     }
+
+    @Override
+    public String toString(){
+        return "Balance: " + getBalance() + " Interest Rate: " + getInterest() + " Maturity: " + getMaturity();
+    }
 }
