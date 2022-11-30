@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="IndividualAssignment1_2045" />
+        <module name="IT2045C-GroupAssignment" />
       </profile>
     </annotationProcessing>
   </component>
