@@ -1,12 +1,18 @@
 import com.bank.Account;
+import com.bank.AccountSerializer;
 import com.bank.Banker;
 import com.bank.CertificateOfDeposit;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Vector;
 
 
@@ -28,6 +34,9 @@ public class BankerForm {
     private JLabel lblStartBalance;
     private JTextField txtStartBalance;
     private JLabel lblTerms;
+    private JTextField txtImportFileName;
+    private JLabel lblImports;
+    private JButton btnImportFile;
 
     private Vector<Account> allAccounts = new Vector<Account>();
 
@@ -66,6 +75,30 @@ public class BankerForm {
 
                 allAccounts.add(account);
                 lstAccounts.updateUI();
+            }
+        });
+
+        /**
+         * Import accounts from a user specified file.
+         * Defaults to accounts.json, uses txtImportFileName for input.
+          */
+        btnImportFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String fileName = txtImportFileName.getText();
+                try {
+                    Reader reader = Files.newBufferedReader(Paths.get(fileName));
+                    GsonBuilder gsonBuilder = new GsonBuilder();
+                    gsonBuilder.registerTypeAdapter(Account.class, new AccountSerializer());
+                    Gson gson = gsonBuilder.create();
+                    Vector<Account> inAccounts = gson.fromJson(reader, new TypeToken<Vector<Account>>() {
+                    }.getType());
+                    allAccounts.addAll(inAccounts);
+                    lstAccounts.updateUI();
+                    reader.close();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         btnCompute.addActionListener(new ActionListener() {

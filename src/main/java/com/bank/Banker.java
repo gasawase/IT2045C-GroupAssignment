@@ -12,6 +12,8 @@ public class Banker {
 
     private static ArrayList<Account> allAccounts = new ArrayList<>();
     public static void main(String[] args){        
+
+
         promptUser();
         displayBalance();
     }
