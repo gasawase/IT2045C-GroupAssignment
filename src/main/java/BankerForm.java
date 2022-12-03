@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Vector;
 
 
@@ -41,8 +43,10 @@ public class BankerForm {
     private JLabel lblAccountNumber;
     private JButton btnClearInterest;
     private JButton btnInterestReport;
+    private JButton btnWithdraw;
 
     private Vector<Account> allAccounts = new Vector<Account>();
+    private static Queue<Account> accountQueue = new PriorityQueue<Account>();
 
     public BankerForm() {
 
@@ -87,6 +91,7 @@ public class BankerForm {
 
                 allAccounts.add(account);
                 lstAccounts.updateUI();
+                accountQueue.offer(account);
             }
         });
 
@@ -154,6 +159,45 @@ public class BankerForm {
                 JOptionPane.showMessageDialog(null, "Generated interest cleared.");
             }
         });
+        btnWithdraw.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel panel = new JPanel(new GridLayout());
+                Vector<Integer> accountNumbers = new Vector<Integer>();
+                Account accountHolder;
+                allAccounts.forEach(account1 -> accountNumbers.add(account1.getAccountNumber()));
+                JLabel lblLowestAccountlbl = new JLabel("Lowest Account: ");
+                JLabel lblLowestAccount = new JLabel();
+                accountHolder = FetchNextLowestAccount();
+                lblLowestAccount.setText(""+accountHolder.getAccountNumber());
+                JLabel lblWithdrawAmountlbl = new JLabel("Withdraw Amount: $");
+                JTextField withdrawAmount = new JTextField();
+                withdrawAmount.setPreferredSize( new Dimension( 200, 24 ) );
+
+                panel.add(lblLowestAccountlbl);
+                panel.add(lblLowestAccount);
+                panel.add(lblWithdrawAmountlbl);
+                panel.add(withdrawAmount);
+                int input = JOptionPane.showOptionDialog(null, panel, "Withdraw",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+                if (input == JOptionPane.OK_OPTION)
+                {
+                    double dbleWithdrawAmount = Double.parseDouble(withdrawAmount.getText());
+
+                    int accountSelected = accountHolder.getAccountNumber();
+                    for (Account account: allAccounts)
+                    {
+                        boolean doesEqual = false;
+                        if (account.getAccountNumber() == accountSelected)
+                        {
+                            account.setBalance(account.getBalance() - dbleWithdrawAmount);
+                            doesEqual = true;
+                        }
+                    }
+
+                }
+            }
+        });
     }
 
     /**
@@ -213,6 +257,11 @@ public class BankerForm {
      */
     private void clearGeneratedInterest(){
         allAccounts.forEach(account -> account.setGeneratedInterest(0));
+    }
+
+    public static Account FetchNextLowestAccount()
+    {
+        return accountQueue.peek();
     }
 
     public static void main(String[] args) {
