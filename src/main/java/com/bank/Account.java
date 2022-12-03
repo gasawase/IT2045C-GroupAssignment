@@ -4,6 +4,8 @@ public class Account {
     protected double balance;
     protected double interest;
     protected int periods;
+    protected int accountNumber;
+    protected double generatedInterest;
 
     public void setBalance(double balance) {
         this.balance = balance;
@@ -25,6 +27,22 @@ public class Account {
         this.periods = periods;
     }
 
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+    
+    public double getGeneratedInterest() {
+        return generatedInterest;
+    }
+
+    public void setGeneratedInterest(double generatedInterest) {
+        this.generatedInterest = generatedInterest;
+    }
+
     public int getPeriods() {
         return periods;
     }
@@ -42,7 +60,7 @@ public class Account {
 
     @Override
     public String toString(){
-        return "Balance: " + getBalance() + " Interest Rate: " + getInterest();
+        return "Account Number: " + getAccountNumber() + " Balance: " + getBalance() + " Interest Rate: " + getInterest();
     }
 
 }

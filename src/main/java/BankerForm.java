@@ -37,6 +37,8 @@ public class BankerForm {
     private JTextField txtImportFileName;
     private JLabel lblImports;
     private JButton btnImportFile;
+    private JTextField txtAccountNumber;
+    private JLabel lblAccountNumber;
 
     private Vector<Account> allAccounts = new Vector<Account>();
 
@@ -53,6 +55,8 @@ public class BankerForm {
                     JOptionPane.showMessageDialog(null, "Please fill in all input forms before adding an account.");
                     return;
                 }
+                String strAccountNumber = txtAccountNumber.getText();
+                int accountNumber = Integer.parseInt(strAccountNumber);
 
                 String strBalance = txtStartBalance.getText();
                 double balance = Double.parseDouble(strBalance);
@@ -64,6 +68,7 @@ public class BankerForm {
                 Account account = Banker.createAccount(type);
                 account.setBalance(balance);
                 account.setInterest(interestRate);
+                account.setAccountNumber(accountNumber);
 
                 if (cmbAccountType.getSelectedItem().toString().equals(Banker.CERT_OF_DEPOSIT)) {
                     if (account instanceof CertificateOfDeposit) {
@@ -73,14 +78,19 @@ public class BankerForm {
                     }
                 }
 
+                if (!validateAccountNumber(account)){
+                    JOptionPane.showMessageDialog(null, "Account number already in use. Please enter a different account number.");
+                    return;
+                }
+
                 allAccounts.add(account);
                 lstAccounts.updateUI();
             }
         });
 
-        /**
-         * Import accounts from a user specified file.
-         * Defaults to accounts.json, uses txtImportFileName for input.
+        /*
+          Import accounts from a user specified file.
+          Defaults to accounts.json, uses txtImportFileName for input.
           */
         btnImportFile.addActionListener(new ActionListener() {
             @Override
@@ -153,6 +163,19 @@ public class BankerForm {
             }
         }
         return true;
+    }
+
+    /**
+     * Checks to see if an account number is already in use
+     * @param account Account object being checked for duplicate (by account number)
+     * @return true if the account number is unique
+     */
+    private boolean validateAccountNumber(Account account){
+        int accountNumber = account.getAccountNumber();
+        Vector<Integer> accountNumbers = new Vector<Integer>();
+        allAccounts.forEach(account1 -> accountNumbers.add(account1.getAccountNumber()));
+
+        return !accountNumbers.contains(accountNumber);
     }
 
     public static void main(String[] args) {

@@ -13,6 +13,6 @@ public class CertificateOfDeposit extends Account {
 
     @Override
     public String toString(){
-        return "Balance: " + getBalance() + " Interest Rate: " + getInterest() + " Maturity: " + getMaturity();
+        return super.toString() + " Maturity: " + getMaturity();
     }
 }

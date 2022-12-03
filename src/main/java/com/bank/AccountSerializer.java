@@ -18,6 +18,7 @@ public class AccountSerializer implements JsonSerializer<Account>, JsonDeseriali
     public Account deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         String accountType = jsonObject.get("type").getAsString();
+        // Note: since the given accounts.json file doesn't include the account number, all imported accounts will have an account number of 0. [Out of scope]
         JsonElement element = jsonObject.get("properties");
 
         try {
