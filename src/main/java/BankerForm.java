@@ -39,6 +39,8 @@ public class BankerForm {
     private JButton btnImportFile;
     private JTextField txtAccountNumber;
     private JLabel lblAccountNumber;
+    private JButton btnClearInterest;
+    private JButton btnInterestReport;
 
     private Vector<Account> allAccounts = new Vector<Account>();
 
@@ -136,6 +138,22 @@ public class BankerForm {
                 }
             }
         });
+
+        btnInterestReport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "All accounts have generated a total of "
+                        + sumGeneratedInterest() + " units of currency.");
+            }
+        });
+
+        btnClearInterest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clearGeneratedInterest();
+                JOptionPane.showMessageDialog(null, "Generated interest cleared.");
+            }
+        });
     }
 
     /**
@@ -176,6 +194,25 @@ public class BankerForm {
         allAccounts.forEach(account1 -> accountNumbers.add(account1.getAccountNumber()));
 
         return !accountNumbers.contains(accountNumber);
+    }
+
+    /**
+     * Sums the total amount of generated interest from all accounts
+     * @return total amount of generated interest from all accounts
+     */
+    private double sumGeneratedInterest(){
+        double totalInterest = 0;
+        for (Account account:allAccounts) {
+            totalInterest += account.getGeneratedInterest();
+        }
+        return totalInterest;
+    }
+
+    /**
+     * Clears the amount of generated interest from each account
+     */
+    private void clearGeneratedInterest(){
+        allAccounts.forEach(account -> account.setGeneratedInterest(0));
     }
 
     public static void main(String[] args) {

@@ -34,7 +34,7 @@ public class Account {
     public void setAccountNumber(int accountNumber) {
         this.accountNumber = accountNumber;
     }
-    
+
     public double getGeneratedInterest() {
         return generatedInterest;
     }
@@ -49,10 +49,12 @@ public class Account {
 
     /**
      * Computes the balance after a number of periods.
+     * Also calculates total generated interest, accessible via getGeneratedInterest()
      * @return the final balance.
      */
     public double compute() {
         for (int i = 0; i < periods; i++) {
+            generatedInterest = generatedInterest + (balance * interest / 100);
             balance = balance + (balance * interest / 100);
         }
         return balance;
