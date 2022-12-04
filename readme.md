@@ -17,7 +17,7 @@ When you add the Class diagram, make sure you also update the Self-Grade sheet b
 
 ## Class diagram
 
-draw.io goes here!
+![Class Diagram](https://github.com/gasawase/IT2045C-GroupAssignment/blob/master/BankClassDiagram.drawio.png)
 
 ## Self-Grade Sheet
 
@@ -33,9 +33,9 @@ Submit this self-grade sheet along with your project.
   - Place all used account numbers in a Set.
   - When the user enters an account, validate that it is not currently in the Set of account numbers.
 - Allow the user to withdraw money from accounts.  Start by withdrawing from the account that pays the lowest interest
-  - Adjust the GUI to allow withrdawls.  __/10 🔴
+  - Adjust the GUI to allow withrdawls.  10/10
   - Place accounts in a priority queue, based on rate.
-  - Use Comparator/compareTo to compare rates.  __/10 🔴
+  - Use Comparator/compareTo to compare rates.  10/10
   - Allow partial withdraws from accounts; simply update principle.
 - Report total interest earned, across all accounts, for a given period. 10/10
   - Iterate over the collection.  Compute interest earned.  Store interest earned from each account in a collection (ArrayList, etc.)  Iterate and sum.
