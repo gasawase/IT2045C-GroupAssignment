@@ -1,8 +1,6 @@
 package com.bank.test;
 
-import com.bank.CertificateOfDeposit;
-import com.bank.Checking;
-import com.bank.Savings;
+import com.bank.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

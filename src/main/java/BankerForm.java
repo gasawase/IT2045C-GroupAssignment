@@ -45,8 +45,8 @@ public class BankerForm {
     private JButton btnInterestReport;
     private JButton btnWithdraw;
 
-    private Vector<Account> allAccounts = new Vector<Account>();
-    private static Queue<Account> accountQueue = new PriorityQueue<Account>();
+    public Vector<Account> allAccounts = new Vector<Account>();
+    public static Queue<Account> accountQueue = new PriorityQueue<Account>();
 
     public BankerForm() {
 
@@ -183,21 +183,25 @@ public class BankerForm {
                 if (input == JOptionPane.OK_OPTION)
                 {
                     double dbleWithdrawAmount = Double.parseDouble(withdrawAmount.getText());
-
-                    int accountSelected = accountHolder.getAccountNumber();
-                    for (Account account: allAccounts)
-                    {
-                        boolean doesEqual = false;
-                        if (account.getAccountNumber() == accountSelected)
-                        {
-                            account.setBalance(account.getBalance() - dbleWithdrawAmount);
-                            doesEqual = true;
-                        }
-                    }
-
+                    withdrawByLowestRate(dbleWithdrawAmount, accountHolder);
                 }
+
             }
         });
+    }
+
+    public void withdrawByLowestRate(double wAmmount, Account accHolder)
+    {
+        int accountSelected = accHolder.getAccountNumber();
+        for (Account account: allAccounts)
+        {
+            boolean doesEqual = false;
+            if (account.getAccountNumber() == accountSelected)
+            {
+                account.setBalance(account.getBalance() - wAmmount);
+                doesEqual = true;
+            }
+        }
     }
 
     /**
@@ -232,7 +236,7 @@ public class BankerForm {
      * @param account Account object being checked for duplicate (by account number)
      * @return true if the account number is unique
      */
-    private boolean validateAccountNumber(Account account){
+    public boolean validateAccountNumber(Account account){
         int accountNumber = account.getAccountNumber();
         Vector<Integer> accountNumbers = new Vector<Integer>();
         allAccounts.forEach(account1 -> accountNumbers.add(account1.getAccountNumber()));
@@ -244,7 +248,7 @@ public class BankerForm {
      * Sums the total amount of generated interest from all accounts
      * @return total amount of generated interest from all accounts
      */
-    private double sumGeneratedInterest(){
+    public double sumGeneratedInterest(){
         double totalInterest = 0;
         for (Account account:allAccounts) {
             totalInterest += account.getGeneratedInterest();
