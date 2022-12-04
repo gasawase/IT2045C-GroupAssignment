@@ -190,6 +190,12 @@ public class BankerForm {
         });
     }
 
+    /**
+     * calculcates the ammount of money the user wants to withdraw from an account if the account
+     * they selected and the account number (while cycling through the accounts) match
+     * @param wAmmount
+     * @param accHolder
+     */
     public void withdrawByLowestRate(double wAmmount, Account accHolder)
     {
         int accountSelected = accHolder.getAccountNumber();
@@ -263,6 +269,10 @@ public class BankerForm {
         allAccounts.forEach(account -> account.setGeneratedInterest(0));
     }
 
+    /**
+     * fetches the account from the Priority Queue with the lowest interest rate
+     * @return the next account with the lowest interest rate. NOTE: does not remove it from the queue
+     */
     public static Account FetchNextLowestAccount()
     {
         return accountQueue.peek();
