@@ -25,7 +25,7 @@ Submit this self-grade sheet along with your project.
 
 - Have a GitHub repository, with commits from all teammates.
 - This repository should have a README.md describes your project. 10/10
-- Create a class diagram in draw.io and include it in your README.md __/10 🔴
+- Create a class diagram in draw.io and include it in your README.md 10/10
 - Start with the program that collects accounts.
 - Initialize your accounts by reading the provided JSON file, accounts.json Download accounts.json.  Allow the user to create additional accounts with the GUI. 10/10
 - Do not allow the user to create duplicate accounts, or duplicate account numbers. 10/10
@@ -39,7 +39,7 @@ Submit this self-grade sheet along with your project.
   - Allow partial withdraws from accounts; simply update principle.
 - Report total interest earned, across all accounts, for a given period. 10/10
   - Iterate over the collection.  Compute interest earned.  Store interest earned from each account in a collection (ArrayList, etc.)  Iterate and sum.
-- Test your work. __/10 🔴
+- Test your work. 10/10
   - Write unit tests to cover the cases above.
   - Ensure they run with GitHub actions.  
 - Code is in good form, and conforms to best practices.  Classes and public methods contain JavaDoc. __/10 🔴
