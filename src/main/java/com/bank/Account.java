@@ -1,11 +1,18 @@
 package com.bank;
 
-public class Account {
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
+public class Account implements Comparable<Account>{
     protected double balance;
     protected double interest;
     protected int periods;
     protected int accountNumber;
     protected double generatedInterest;
+
+    //private static Map <String, Integer> ratePriorities = new HashMap<>();
 
     public void setBalance(double balance) {
         this.balance = balance;
@@ -17,6 +24,7 @@ public class Account {
 
     public void setInterest(double interest) {
         this.interest = interest;
+
     }
 
     public double getInterest() {
@@ -65,4 +73,10 @@ public class Account {
         return "Account Number: " + getAccountNumber() + " Balance: " + getBalance() + " Interest Rate: " + getInterest();
     }
 
+    @Override
+    public int compareTo(Account o) {
+        int ourRate = (int)getInterest();
+        int theirRate = (int)o.getInterest();
+        return ourRate - theirRate;
+    }
 }
