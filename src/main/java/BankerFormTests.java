@@ -55,13 +55,24 @@ public class BankerFormTests {
     public void checkForTotalInterestEarned()
     {
         BankerForm bankerForm = new BankerForm();
-        Object CHECKING = new Object();
-        Account account1 = Banker.createAccount(CHECKING);
-        Account account2 = Banker.createAccount(CHECKING);
+        Object SAVINGS = new Object();
+        Account account1 = Banker.createAccount(SAVINGS);
+        Account account2 = Banker.createAccount(SAVINGS);
 
         account1.setInterest(15.0);
+        account1.setPeriods(2);
+        account1.setBalance(100.0);
         account2.setInterest(20.0);
+        account2.setPeriods(2);
+        account2.setBalance(100.0);
 
-        assertEquals(35.0, bankerForm.sumGeneratedInterest(), 1.0);
+        bankerForm.allAccounts.add(account1);
+        bankerForm.allAccounts.add(account2);
+
+        bankerForm.allAccounts.stream().forEach(account -> {
+            account.compute();
+        });
+
+        assertEquals(76.25, bankerForm.sumGeneratedInterest(), 1.0);
     }
 }
